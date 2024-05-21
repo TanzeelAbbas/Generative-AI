@@ -35,7 +35,7 @@ class FineTuning:
 
 
     def setup_model(self):
-        os.environ["HF_TOKEN"] = "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"
+        os.environ["HF_TOKEN"] = "PASTE YOUR HUGGINGFACE API KEY HERE"
         model = AutoModelForCausalLM.from_pretrained(
             self.model_name,
             torch_dtype=torch.float16,
