@@ -135,7 +135,7 @@ class FineTuning:
 if __name__ == "__main__":
     model_name = "meta-llama/Llama-2-7b-chat-hf"
     ft = FineTuning(model_name, "results", 64, 16, 0.1) # "meta-llama/Meta-Llama-3-8B-Instruct"
-    dataset = ft.load_data("../../data/jira_files/jira_QA.csv")
+    dataset = ft.load_data("train.csv")
     fine_tuned_model_name = "Llama-2-7b-finetune"
     ft.train(dataset, fine_tuned_model_name)
     
