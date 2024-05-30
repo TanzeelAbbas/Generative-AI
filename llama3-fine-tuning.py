@@ -28,8 +28,6 @@ class FineTuning:
     def load_data(self, train_path, test_path):
         train_dataset = pd.read_csv(train_path)
         test_dataset = pd.read_csv(test_path)
-        # For the chat model(LLM) we convert the dataset to below format for training. 
-        # Note: Below is specific format for llama chat model fine tuning for other it may be different format
         train_dataset['text'] =  train_dataset['Questions'] + train_dataset['Answers'] 
         train_dataset = Dataset.from_pandas(train_dataset[['text']])
         test_dataset['text'] =  test_dataset['Questions'] + test_dataset['Answers'] 
