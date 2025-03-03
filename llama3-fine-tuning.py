@@ -28,6 +28,8 @@ class FineTuning:
     def load_data(self, train_path, test_path):
         train_dataset = pd.read_csv(train_path)
         test_dataset = pd.read_csv(test_path)
+        # For the chat model(LLM) we convert the dataset to below format for training. 
+        # Note: Below is specific format for llama chat model fine tuning for other it may be different format
         train_dataset['text'] =  train_dataset['Questions'] + train_dataset['Answers'] 
         train_dataset = Dataset.from_pandas(train_dataset[['text']])
         test_dataset['text'] =  test_dataset['Questions'] + test_dataset['Answers'] 
@@ -35,7 +37,7 @@ class FineTuning:
         return train_dataset, test_dataset
 
     def setup_model(self):
-        os.environ["HF_TOKEN"] = "PASTE YOUR HUGGING FACE TOKEN HERE"
+        os.environ["HF_TOKEN"] = "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"
         model = AutoModelForCausalLM.from_pretrained(
             self.model_name,
             torch_dtype=torch.float16,
@@ -139,7 +141,7 @@ class FineTuning:
 if __name__ == "__main__":
     model_name = "meta-llama/Meta-Llama-3-8B"
     ft = FineTuning(model_name, "results", 64, 16, 0.1) # "meta-llama/Meta-Llama-3-8B-Instruct"
-    train_dataset, test_dataset = ft.load_data("train.csv", "test.csv")
+    train_dataset, test_dataset = ft.load_data("jira_QA.csv", "FAQs.csv")
     fine_tuned_model_name = "Llama-3-8b-finetuned"
     ft.train(train_dataset, test_dataset, fine_tuned_model_name)
     
